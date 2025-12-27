@@ -1,0 +1,68 @@
+System : Linux / macOS / Windows (WSL2)
+
+Version Control : Git
+
+Cloud :
+
+Google Cloud Platform (GCP)
+GCP Project (Billing Enabled)
+
+IAM / Access : 
+
+Kubernetes Engine Admin
+Compute Admin
+Service Account User
+
+CLI Tools : 
+
+Google Cloud CLI (gcloud)
+kubectl
+Helm
+
+Infrastructure as Code : Terraform
+
+Container Platform: Kubernetes (GKE)
+
+Observability & Monitoring : 
+
+Prometheus
+Grafana
+
+Progressive Delivery: 
+
+Argo Workflow
+Argo Rollouts
+
+Containerization : Docker
+
+Container Registry: Google Artifact Registry / Docker Hub / Amazon ECR
+
+CI/CD : 
+
+GitHub
+GitHub Actions
+
+Metrics & SLOs:
+
+Application Metrics (Latency, Errors, Traffic)
+SLO Definitions
+Error Budget Policy
+
+Networking : 
+
+Kubernetes Services
+Ingress Controller
+Optional: 
+
+Load Testing Tool (hey / k6 / ab)
+
+Alertmanager : 
+
+Custom Grafana Dashboards
+Domain / DNS
+
+Secrets: 
+
+GCP_PROJECT_ID
+GCP_SA_KEY
+Registry Credentials

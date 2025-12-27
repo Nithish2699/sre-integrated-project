@@ -1,0 +1,10 @@
+venv/
+.env
+__pycache__/
+*.log
+node_modules/
+.DS_Store
+.vscode/
+.idea/
+terraform.tfstate
+terraform.tfstate.backup
