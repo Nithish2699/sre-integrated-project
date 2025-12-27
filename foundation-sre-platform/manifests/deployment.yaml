@@ -1,8 +1,10 @@
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: sre-demo-app
+  namespace: sre-demo
+  labels:
+    app: sre-demo
 spec:
   replicas: 1
   selector:
@@ -14,10 +16,11 @@ spec:
         app: sre-demo
     spec:
       containers:
-      - name: app
-        image: nginx
+      - name: sre-demo-container
+        image: nginx:alpine
         ports:
         - containerPort: 80
+
         resources:
           requests:
             cpu: "100m"
@@ -25,3 +28,17 @@ spec:
           limits:
             cpu: "250m"
             memory: "256Mi"
+
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 10
+
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 15
+          periodSeconds: 20
