@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 # Integrated SRE Platform Repository
 
@@ -246,3 +247,6 @@ Error budgets align reliability with business priorities.
 👉 Policy:
 error-budget-policy.md
 
+=======
+# sre-integrated-project
+>>>>>>> b708fff3922d938d6d6422b0084ae26eed34a1d5
