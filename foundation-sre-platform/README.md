@@ -134,7 +134,7 @@ Dashboards created for:
 *   **Pod failure:**
     ```sh
     kubectl delete pod -n sre-demo -l app=sre-demo
-    ```
+    ``` 
 *   **CPU saturation:**
     ```sh
     kubectl exec -n sre-demo <pod> -- sh -c "yes > /dev/null"
