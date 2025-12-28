@@ -48,6 +48,14 @@ Phase 1 focuses on foundational reliability and observability before introducing
 
 ## 🛠️ Phase 1 — Step-by-Step Implementation
 
+> **Note on Helper Scripts:** This project includes several shell scripts (`*.sh`) to automate common tasks. Before running them for the first time, you must make them executable:
+> ```sh
+> chmod +x <script-name>.sh
+> # Example:
+> chmod +x ./debug-pending-pods.sh
+> ```
+
+
 ### Step 1 — Tool Validation
 *Purpose: Ensures all required tooling is installed and compatible before provisioning.*
 ```sh
@@ -104,20 +112,24 @@ kubectl logs -n sre-demo -l app=sre-demo
 ```sh
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 helm repo update
-helm install monitoring prometheus-community/kube-prometheus-stack
+# Best Practice: Install into a dedicated namespace for isolation.
+helm install monitoring prometheus-community/kube-prometheus-stack \
+  --namespace monitoring \
+  --create-namespace
 ```
 
 ### Step 9 — Grafana Secure Access
 *Purpose: Provides secure, temporary access to dashboards without public exposure.*
 
 1.  **Forward the port:**
+    *(Note: Use the namespace where the stack was installed, e.g., 'monitoring')*
     ```sh
-     kubectl port-forward -n default svc/monitoring-grafana 3000:80
+     kubectl port-forward -n monitoring svc/monitoring-grafana 3000:80
     ```
 2.      **Open in browser:** `http://localhost:3000`
 3.      **Retrieve admin password:**
     ```sh
-      kubectl get secret monitoring-grafana -n default \-o jsonpath="{.data.admin-password}" | base64 --decode
+      kubectl get secret monitoring-grafana -n monitoring \-o jsonpath="{.data.admin-password}" | base64 --decode
     ```
 
 ### Step 10 — Dashboard Creation (Golden Signals)
@@ -203,4 +215,3 @@ This Phase 1 implementation represents real Site Reliability Engineering work, n
 With Phase 1 complete and locked, the platform is now ready to evolve into SLO-driven delivery and safe change management in Phase 2. The lessons, patterns, and operational discipline established here form a durable baseline for scaling reliability, introducing controlled rollouts, and aligning engineering outcomes with business expectations.
 
 **Reliability is not a feature — it is a continuous practice.**
-

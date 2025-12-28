@@ -1,0 +1,36 @@
+prometheus-node-exporter:
+  hostNetwork: false
+  dnsPolicy: ClusterFirst
+  
+  
+  containerPorts:
+    - name: metrics
+      containerPort: 9100
+      protocol: TCP
+
+  nodeSelector:
+    kubernetes.io/os: linux
+
+  tolerations:
+    - operator: Exists
+
+  livenessProbe:
+    httpGet:
+      path: /metrics
+      port: 9100
+    initialDelaySeconds: 60
+    periodSeconds: 60
+    timeoutSeconds: 5
+    failureThreshold: 10
+
+  readinessProbe:
+    httpGet:
+      path: /metrics
+      port: 9100
+    initialDelaySeconds: 30
+    periodSeconds: 30
+    timeoutSeconds: 5
+    failureThreshold: 10
+
+  securityContext:
+    privileged: true

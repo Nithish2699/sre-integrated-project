@@ -1,0 +1,22 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: sre-demo-monitor
+  # This is the critical change: The monitor lives in the same namespace as Prometheus.
+  namespace: monitoring
+  # This label ensures the Prometheus Operator installed by our Helm release finds this monitor.
+  labels:
+    release: monitoring
+spec:
+  # This tells the monitor to look for services in the 'sre-demo' namespace.
+  namespaceSelector:
+    matchNames:
+    - sre-demo
+  # This selects the specific service to scrape within that namespace.
+  selector:
+    matchLabels:
+      app: sre-demo
+  endpoints:
+  - port: http # This must match the port name in your application's Service.
+    path: /metrics
+    interval: 15s
