@@ -15,24 +15,23 @@ resource "google_container_cluster" "sre_cluster" {
   networking_mode = "VPC_NATIVE" 
 }
 
+resource "google_container_node_pool" "primary_nodes" {
+  name       = "primary-node-pool"
+  cluster    = google_container_cluster.sre_cluster.name
+  location   = var.region
 
-#resource "google_container_node_pool" "primary_nodes" {
-#  name       = "primary-node-pool"
- # cluster    = google_container_cluster.sre_cluster.name
-  #location   = var.region
+  node_count = 2
 
-#  node_count = 2
+  node_config {
+    machine_type = "e2-medium"
 
-#  node_config {
- #   machine_type = "e2-medium"
-#
- #   disk_type    = "pd-standard"
-#    disk_size_gb = 50
+    disk_type    = "pd-standard"
+    disk_size_gb = 50
 
- #   oauth_scopes = [
-  #    "https://www.googleapis.com/auth/cloud-platform"
-   # ]
-  #}
-#}
+    oauth_scopes = [
+      "https://www.googleapis.com/auth/cloud-platform"
+    ]
+  }
+}
 
 
