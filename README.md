@@ -104,34 +104,32 @@ Command:
 kubectl apply -f foundation-sre-platform/kubernetes/
 ```
 
-### Step 4 — Install Observability (Prometheus & Grafana)
+🔹 Step 4 — Install Observability (Prometheus & Grafana)
 
-What:  
+What:
 Install metrics collection and dashboards.
 
-Why:  
+Why:
 You cannot operate what you cannot observe.
 
-Commands:
-```bash
+Command: 
+
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 helm repo update
 helm install monitoring prometheus-community/kube-prometheus-stack
-```
 
 ### Step 5 — Observe Metrics & Logs
 
-What:  
+What:
 View latency, errors, traffic, and resource usage.
 
 Why:  
 Metrics and logs are required for debugging and incident detection.
 
-Commands:
-```bash
+Command:
+
 kubectl port-forward svc/monitoring-grafana 3000:80
 kubectl logs <pod-name>
-```
 
 ### Step 6 — Simulate Incident
 
@@ -225,13 +223,13 @@ Gradual rollout detects issues early.
 
 ### Step 4 — SLO Burn-Rate Analysis
 
-What:  
+What:
 Evaluate Prometheus metrics during rollout.
 
 Why:  
 Deployments should stop when error budgets are at risk.
 
-(Analysis templates are defined in `analysis-template.yaml`.)
+(Defined in analysis-template.yaml)
 
 ### Step 5 — CI/CD Trigger
 
