@@ -108,27 +108,78 @@ Highlights / Recommended workflow
 
 1. Install Argo Rollouts
 ```bash
+# Create the namespace for Argo Rollouts
 kubectl create namespace argo-rollouts
+
+# Install the core Argo Rollouts controller
 kubectl apply -n argo-rollouts \
   -f https://github.com/argoproj/argo-rollouts/releases/latest/download/install.yaml
 ```
 
-2. Deploy a Rollout (canary strategy)
-- Apply rollout manifests:
+### Step 1a — Install Dashboard & CLI Plugin
+
+What:
+Install the UI dashboard and the `kubectl` plugin for easier management.
+
+Why:
+The dashboard provides essential real-time visualization of canary releases.
+
+Commands:
+```bash
+# Install the dashboard components
+kubectl apply -n argo-rollouts \
+  -f https://github.com/argoproj/argo-rollouts/releases/latest/download/dashboard-install.yaml
+
+# Install the kubectl plugin (for commands like `kubectl argo rollouts dashboard`)
+curl -LO https://github.com/argoproj/argo-rollouts/releases/latest/download/kubectl-argo-rollouts-linux-amd64
+chmod +x ./kubectl-argo-rollouts-linux-amd64
+sudo mv ./kubectl-argo-rollouts-linux-amd64 /usr/local/bin/kubectl-argo-rollouts
+```
+
+### Step 2 — Deploy Rollout (Canary Strategy)
+
+What:  
+Define a rollout that shifts traffic gradually.
+
+Why:  
+Small exposure reduces blast radius during failures.
+
+Command:
 ```bash
 kubectl apply -f advanced-sre-platform-argo/argo-rollouts/
 ```
 
-3. Traffic shifting
-- Rollouts are configured to shift traffic progressively (e.g., 20% → 50% → 100%) to minimize blast radius.
+### Step 3 — Traffic Shifting
 
-4. SLO burn-rate / analysis
-- Use Prometheus queries and an analysis template to evaluate error budget burn during rollout. If burn rate exceeds thresholds, the rollout should pause/abort.
+What:  
+Send 20% → 50% → 100% traffic to the new version.
 
-5. CI/CD trigger
-- CI pipelines should update the rollout image and let the rollout + analysis handle promotion or rollback:
+Why:  
+Gradual rollout detects issues early.
+
+(Note: traffic progression is controlled by Argo Rollouts and configured strategies.)
+
+### Step 4 — SLO Burn-Rate Analysis
+
+What:
+Evaluate Prometheus metrics during rollout.
+
+Why:  
+Deployments should stop when error budgets are at risk.
+
+(Defined in analysis-template.yaml)
+
+### Step 5 — CI/CD Trigger
+
+What:  
+CI pipeline updates rollout image automatically.
+
+Why:  
+CI triggers deployments, not reliability decisions.
+
+Example command:
 ```bash
-kubectl set image rollout/sre-demo-rollout app=nginx:latest
+kubectl argo rollouts set image sre-demo-rollout app=nginx:1.25.3
 ```
 
 6. Automatic rollback or promotion

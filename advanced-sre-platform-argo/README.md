@@ -1,17 +1,18 @@
+
 # Advanced SRE Platform (Argo Rollouts)
 
 This directory contains the implementation for **Phase 2** of the SRE platform, focusing on safe, automated deployments using Argo Rollouts.
 
 The primary goal is to govern change without compromising the reliability established in Phase 1. This is achieved through canary releases, progressive traffic shifting, and SLO-based analysis.
 
----
+
 
 ## 📜 Key Documents
 
 *   **[Error Budget Policy](./policy/error-budget-policy.md):** Defines the rules that govern deployment velocity based on remaining reliability.
 *   **[Canary Failure Postmortem](./postmortems/canary-deployment-postmortem.md):** An example of how to document and learn from an automatically rolled-back deployment.
 
----
+
 
 ## �️ Phase 2 — Step-by-Step Implementation
 
@@ -46,3 +47,4 @@ kubectl set image rollout/sre-demo-rollout app=nginx:latest
 
 ## Step 6 — Automatic Rollback or Promotion
 Stops the rollout if the error budget is threatened, otherwise promotes safely.
+
