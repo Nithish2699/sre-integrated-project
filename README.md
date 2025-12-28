@@ -7,6 +7,7 @@ Repository structure
   → Core SRE foundations (infrastructure, Kubernetes, observability, incidents)
 - Phase 2 — advanced-sre-platform-argo/  
   → Advanced SRE practices (canary deployments, Argo Rollouts, CI/CD, error budgets)
+<img width="1536" height="1024" alt="ChatGPT Image Dec 28, 2025, 10_59_19 PM" src="https://github.com/user-attachments/assets/9d76e4b5-49c4-4fe3-b62a-a388f1654165" />
 
 Quick links
 - Phase 1 — Foundation SRE Platform  
