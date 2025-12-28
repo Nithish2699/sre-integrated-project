@@ -112,13 +112,12 @@ helm install monitoring prometheus-community/kube-prometheus-stack
 
 1.  **Forward the port:**
     ```sh
-kubectl port-forward -n default svc/monitoring-grafana 3000:80
+     kubectl port-forward -n default svc/monitoring-grafana 3000:80
     ```
-2.  **Open in browser:** `http://localhost:3000`
-3.  **Retrieve admin password:**
+2.      **Open in browser:** `http://localhost:3000`
+3.      **Retrieve admin password:**
     ```sh
-kubectl get secret monitoring-grafana -n default \
--o jsonpath="{.data.admin-password}" | base64 --decode
+      kubectl get secret monitoring-grafana -n default \-o jsonpath="{.data.admin-password}" | base64 --decode
     ```
 
 ### Step 10 — Dashboard Creation (Golden Signals)
